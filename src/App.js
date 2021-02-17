@@ -12,6 +12,7 @@ import { auth, createUserProfilDocument } from './firebase/firebase.utils';
 import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import CollectionPage from './pages/collection/collection.component';
 
 
 // import { render } from '@testing-library/react';
@@ -54,9 +55,10 @@ class App extends React.Component {
         <Switch>
           <Route exact  path='/' component={HomePage}  />
           <Route exact  path='/shop' component={ShopPage}  />
+          <Route exact  path='/shop/:collectionId' component={CollectionPage}  />
           <Route exact  path='/checkout' component={CheckOut}  />
           <Route exact  path='/contact' render = { () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
-          </Switch>
+        </Switch>
       </div>
     );
   }
