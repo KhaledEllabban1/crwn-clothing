@@ -7,27 +7,35 @@ import { selectCartItems, selectCartItemsTotal } from '../../redux/cart/cart.sel
 import  SttipeCheckoutButton from '../../components/sttipe-button/stripe-button.component';
 
 import CheckOutItem from '../../components/checkout-item/checkout-item.component';
-import './checkout.styles.scss';
+// import './checkout.styles.scss';
+
+import {
+    CheckOutPageContainer,
+    CheckOutHeaderContainer,
+    HeaderBlockContainer,
+    TotalContainer,
+    TestWarningContainer
+} from './checkout.styles';
 
 const CheckOut = ({ cartItems, total }) => (
-    <div className='checkout-page'>
-        <div className='checkout-header'>
-            <div className='header-block'>
+    <CheckOutPageContainer>
+        <CheckOutHeaderContainer>
+            <HeaderBlockContainer>
                 <span> Product </span>
-            </div>
-            <div className='header-block'>
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span> Description </span>
-            </div>
-            <div className='header-block'>
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span> Quantity </span>
-            </div>
-            <div className='header-block'>
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span> Price </span>
-            </div>
-            <div className='header-block'>
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span> Remove </span>
-            </div>
-        </div>
+            </HeaderBlockContainer>
+        </CheckOutHeaderContainer>
 
         {
             cartItems.map( cartItem =>
@@ -35,18 +43,18 @@ const CheckOut = ({ cartItems, total }) => (
             )
         }
 
-        <div className='total'>
+        <TotalContainer>
             <span> TOTAL: ${total} </span>
-        </div>
-        <div className='test-warning'>
+        </TotalContainer>
+        <TestWarningContainer>
             *Please use the following test credit card for payments*
             <br />
             and see the Token on console after submitting
             <br />
             4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
-        </div>
+        </TestWarningContainer>
         <SttipeCheckoutButton price = {total} />
-    </div>
+    </CheckOutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
