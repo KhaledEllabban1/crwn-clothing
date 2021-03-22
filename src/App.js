@@ -13,6 +13,12 @@ import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import CollectionPage from './pages/collection/collection.component';
+// 
+import { fetchCollectionStartAsyc } from './redux/shop/shop.action';
+import { selectIsCollectionsLoaded } from './redux/shop/shop.selector';
+import WithSpinner from './components/with-spinner/with-spinner.component';
+const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+
 
 
 // import { render } from '@testing-library/react';
@@ -25,7 +31,8 @@ class App extends React.Component {
   
 
   componentDidMount(){
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, fetchCollectionStartAsyc } = this.props;
+    fetchCollectionStartAsyc();
     this.unsubscribFromAuth = auth.onAuthStateChanged( async userAuth => {
 
       if(userAuth) {
@@ -49,13 +56,14 @@ class App extends React.Component {
 
 
   render() {
+    const { isCollectionloaded } = this.props;
     return (
       <div>
         <Header />
         <Switch>
           <Route exact  path='/' component={HomePage}  />
           <Route exact  path='/shop' component={ShopPage}  />
-          <Route exact  path='/shop/:collectionId' component={CollectionPage}  />
+          <Route path='/shop/:collectionId' render={ props => ( <CollectionPageWithSpinner isLoading = { !isCollectionloaded } {...props} /> )} />     
           <Route exact  path='/checkout' component={CheckOut}  />
           <Route exact  path='/contact' render = { () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
         </Switch>
@@ -65,11 +73,13 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  isCollectionloaded : selectIsCollectionsLoaded
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser : user => dispatch(setCurrentUser(user))
+  setCurrentUser : user => dispatch(setCurrentUser(user)),
+  fetchCollectionStartAsyc : collectionMap => dispatch(fetchCollectionStartAsyc(collectionMap))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
