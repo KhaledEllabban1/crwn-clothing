@@ -12,18 +12,11 @@ import { auth, createUserProfilDocument } from './firebase/firebase.utils';
 import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import CollectionPage from './pages/collection/collection.component';
 // 
+import CollectionPageContainer from './pages/collection/collection.container';
 import { fetchCollectionStartAsyc } from './redux/shop/shop.action';
-import { selectIsCollectionsLoaded } from './redux/shop/shop.selector';
-import WithSpinner from './components/with-spinner/with-spinner.component';
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
-
-
 
 // import { render } from '@testing-library/react';
-
-
 
 class App extends React.Component {
 
@@ -56,14 +49,13 @@ class App extends React.Component {
 
 
   render() {
-    const { isCollectionloaded } = this.props;
     return (
       <div>
         <Header />
         <Switch>
           <Route exact  path='/' component={HomePage}  />
           <Route exact  path='/shop' component={ShopPage}  />
-          <Route path='/shop/:collectionId' render={ props => ( <CollectionPageWithSpinner isLoading = { !isCollectionloaded } {...props} /> )} />     
+          <Route path='/shop/:collectionId' component={CollectionPageContainer} />     
           <Route exact  path='/checkout' component={CheckOut}  />
           <Route exact  path='/contact' render = { () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
         </Switch>
@@ -73,8 +65,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  isCollectionloaded : selectIsCollectionsLoaded
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
