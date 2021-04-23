@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
@@ -17,23 +17,15 @@ import { fetchCollectionStart } from './redux/shop/shop.action';
 
 // import { render } from '@testing-library/react';
 
-class App extends React.Component {
+const App = ({fetchCollectionStart, checkUserSession, currentUser}) => {
 
-  unsubscribFromAuth = null;
   
-
-  componentDidMount(){
-    const { fetchCollectionStart, checkUserSession } = this.props;
+  useEffect( () => {
     fetchCollectionStart();
     checkUserSession();
-  }
-  componentWillUnmount() {
-    this.unsubscribFromAuth();
-  }
+  }, [checkUserSession, fetchCollectionStart]);
 
-
-  render() {
-    return (
+  return (
       <div>
         <Header />
         <Switch>
@@ -41,11 +33,10 @@ class App extends React.Component {
           <Route exact  path='/shop' component={ShopPage}  />
           <Route path='/shop/:collectionId' component={CollectionPageContainer} />     
           <Route exact  path='/checkout' component={CheckOut}  />
-          <Route exact  path='/contact' render = { () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
+          <Route exact  path='/contact' render = { () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
         </Switch>
       </div>
     );
-  }
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -57,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
   fetchCollectionStart : () => dispatch(fetchCollectionStart())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App); 

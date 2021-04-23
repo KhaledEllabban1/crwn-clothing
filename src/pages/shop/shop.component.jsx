@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { Route } from 'react-router-dom';
 
@@ -11,15 +11,12 @@ import CollectionPageContainer from '../collection/collection.container';
 import CollectionOverViewContainer from '../../components/collections-overview/collection-overview.container';
 
 
-class ShopPage extends React.Component {
+const ShopPage = ({fetchCollectionStart, match}) => {
 
-    componentDidMount() {
-        const { fetchCollectionStart } = this.props;
+    useEffect( () => {
         fetchCollectionStart();
-    }
-
-    render() {
-        const { match } = this.props;
+    }, [fetchCollectionStart]);
+    
         return (
             <div className='shop-page'>
                 <Route exact  path={`${match.path}`} component={CollectionOverViewContainer} />
@@ -27,7 +24,6 @@ class ShopPage extends React.Component {
                 {/* this is not working it's working from app.js and here not working in nested routes!!!! */}
             </div>
         );
-    }
 }
 
 const mapDispatchToProps = dispatch => ({
