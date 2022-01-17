@@ -18,15 +18,12 @@ import CollectionPageContainer from './pages/collection/collection.container';
 import { fetchCollectionStart } from './redux/shop/shop.action';
 
 // import { render } from '@testing-library/react';
-import { auth, createUserProfilDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
-import { selectCollectionForPreview } from './redux/shop/shop.selector';
 
-const App = ({fetchCollectionStart, checkUserSession, currentUser, collectionsArray}) => {
+const App = ({fetchCollectionStart, checkUserSession, currentUser}) => {
 
   useEffect( () => {
     fetchCollectionStart();
     checkUserSession();
-    addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items})));
   }, [checkUserSession, fetchCollectionStart]);  
 
   return (
@@ -45,8 +42,7 @@ const App = ({fetchCollectionStart, checkUserSession, currentUser, collectionsAr
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  collectionsArray : selectCollectionForPreview
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
