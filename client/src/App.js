@@ -27,7 +27,7 @@ const App = ({fetchCollectionStart, checkUserSession, currentUser, collectionsAr
     fetchCollectionStart();
     checkUserSession();
     addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items})));
-  }, [checkUserSession, fetchCollectionStart]);
+  }, [checkUserSession, fetchCollectionStart]);  
 
   return (
       <div>
