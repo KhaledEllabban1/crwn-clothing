@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/sign-up/sign-up.styles.scss"],"names":[],"mappings":"AAAA,QACI,YAAa,CACb,qBAAsB,CACtB,WAAY,CAHhB,eAMQ,aAAa","file":"6.7327e96d.chunk.css","sourcesContent":["sign-up{\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 380px;\r\n\r\n    .title {\r\n        margin:10px 0;\r\n    }\r\n}"]}
