@@ -23,15 +23,15 @@ import {
 
 const Header = ({ currentUser, hidden, signOutStart }) => (
     <HeaderContainer>
-        <LogoContainer  to='/'>
+        <LogoContainer  to='/crwn-clothing'>
             <Logo className='logo' />
         </LogoContainer>
 
         <OptionsContainer>
-            <OptionLink to='/shop'>
+            <OptionLink to='/crwn-clothing/shop'>
                 SHOP
             </OptionLink>
-            <OptionLink to='/contact'>
+            <OptionLink to='/crwn-clothing/contact'>
                 CONTACT
             </OptionLink>
 
@@ -39,7 +39,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
                 currentUser ? 
                 (<OptionLink as='div' onClick={signOutStart} >  SIGN OUT  </OptionLink>)
                 :
-                (<OptionLink to='/contact'>  SIGN IN  </OptionLink>)
+                (<OptionLink to='/crwn-clothing/contact'>  SIGN IN  </OptionLink>)
             }
 
             <CartIcon />

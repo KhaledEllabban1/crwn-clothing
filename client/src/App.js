@@ -8,6 +8,7 @@ import { GlobalStyle } from  './global.styles';
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
+// import HomePage from './pages/homepage/homepage.component';
 
 import { createStructuredSelector } from 'reselect';
 import { checkUserSession } from './redux/user/user.actions';
@@ -37,11 +38,11 @@ const App = ({fetchCollectionStart, checkUserSession, currentUser}) => {
         <Switch>
           <ErrorBoundary>
            <Suspense fallback = {<Spinner />}>
-              <Route exact  path='/' component={HomePage}  />
-              <Route exact  path='/shop' component={ShopPage}  />
-              <Route path='/shop/:collectionId' component={CollectionPageContainer} />     
-              <Route exact  path='/checkout' component={CheckOut}  />
-              <Route exact  path='/contact' render = { () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
+              <Route exact  path='/crwn-clothing' component={HomePage}  />
+              <Route exact  path='/crwn-clothing/shop' component={ShopPage}  />
+              <Route path='/crwn-clothing/shop/:collectionId' component={CollectionPageContainer} />     
+              <Route exact  path='/crwn-clothing/checkout' component={CheckOut}  />
+              <Route exact  path='/crwn-clothing/contact' render = { () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignOutPage />) }  />
            </Suspense>
           </ErrorBoundary>
         </Switch>
